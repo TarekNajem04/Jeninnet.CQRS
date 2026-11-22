@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>ASP.NET Core minimal-API endpoint mapping for the Jeninnet CQRS broker.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+        <ProjectReference Include="..\Jeninnet.CQRS.Validation\Jeninnet.CQRS.Validation.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="Jeninnet.CQRS.AspNetCore.Tests" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net462;netstandard2.0;net10.0;net11.0</TargetFrameworks>
+        <UseCqrsGuard>true</UseCqrsGuard>
+        <UseCqrsNetStandardAttributes>true</UseCqrsNetStandardAttributes>
+        <Description>CQRS pipeline integration for Microsoft.Extensions.Diagnostics.HealthChecks.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+        <ProjectReference Include="..\Jeninnet.CQRS.Resilience\Jeninnet.CQRS.Resilience.csproj" />
+        <ProjectReference Include="..\Jeninnet.CQRS.Sagas\Jeninnet.CQRS.Sagas.csproj" />
+    </ItemGroup>
+
+</Project>

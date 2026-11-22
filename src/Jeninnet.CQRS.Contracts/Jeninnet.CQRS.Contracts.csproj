@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>Zero-dependency message contracts for Jeninnet CQRS producers and consumers.</Description>
+        <DisableGlobalFramework>true</DisableGlobalFramework>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- netstandard2.0-only package: the build-time net462 reference-assembly package is not a dependency. -->
+        <PackageReference Remove="Microsoft.NETFramework.ReferenceAssemblies.net462" />
+    </ItemGroup>
+
+</Project>

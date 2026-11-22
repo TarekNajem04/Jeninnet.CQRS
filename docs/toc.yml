@@ -1,0 +1,16 @@
+- name: Overview
+  href: index.md
+- name: Getting started
+  href: guides/getting-started.md
+- name: Repository README
+  href: guides/README.md
+- name: Packages
+  href: packages.md
+- name: Benchmarks
+  href: benchmarks/README.md
+- name: Architecture decisions
+  href: adr/toc.yml
+- name: XML documentation policy
+  href: XML-DOCS.md
+- name: API reference
+  href: api/toc.yml

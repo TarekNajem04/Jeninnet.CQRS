@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>CQRS pipeline integration for the Jeninnet validation engine.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Jeninnet.Validation.Abstractions" />
+        <ProjectReference Include="..\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+    </ItemGroup>
+
+</Project>

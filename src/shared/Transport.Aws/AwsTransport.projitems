@@ -1,0 +1,8 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!--
+        Shared state and lifecycle for the AWS transports.
+    -->
+    <ItemGroup>
+        <Compile Include="$(MSBuildThisFileDirectory)AwsTransportCore.cs" Link="AwsTransportCore.cs" />
+    </ItemGroup>
+</Project>

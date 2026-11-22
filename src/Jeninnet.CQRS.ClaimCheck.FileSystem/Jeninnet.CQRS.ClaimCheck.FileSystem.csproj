@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>File-system claim-check provider for the Jeninnet CQRS pipeline.</Description>
+        <DisableGlobalFramework>true</DisableGlobalFramework>
+        <TargetFrameworks>netstandard2.0;net10.0;net11.0</TargetFrameworks>
+        <UseCqrsGuard>true</UseCqrsGuard>
+        <UseCqrsNetStandardAttributes>true</UseCqrsNetStandardAttributes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>SQS/SNS transport for the Jeninnet CQRS pipeline.</Description>
+        <DisableGlobalFramework>true</DisableGlobalFramework>
+        <TargetFrameworks>netstandard2.0;net10.0;net11.0</TargetFrameworks>
+        <UseCqrsGuard>true</UseCqrsGuard>
+        <UseCqrsNetStandardAttributes>true</UseCqrsNetStandardAttributes>
+        <UseCqrsLock>true</UseCqrsLock>
+        <UseCqrsTaskWait>true</UseCqrsTaskWait>
+        <UseCqrsCryptoCompat>true</UseCqrsCryptoCompat>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AWSSDK.SimpleNotificationService" />
+        <PackageReference Include="AWSSDK.SQS" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+    </ItemGroup>
+    <Import Project="..\shared\Transport\Transport.projitems" Label="Shared" />
+    <Import Project="..\shared\Transport.Aws\AwsTransport.projitems" Label="Shared" />
+</Project>

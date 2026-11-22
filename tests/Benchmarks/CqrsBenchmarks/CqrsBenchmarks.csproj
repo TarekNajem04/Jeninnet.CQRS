@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <IsPackable>false</IsPackable>
+        <!-- EF Core SQLite is net11-only in this repo, so the suite is too. -->
+        <DisableGlobalFramework>true</DisableGlobalFramework>
+        <TargetFrameworks>net11.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BenchmarkDotNet" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\src\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+        <ProjectReference Include="..\..\..\src\Jeninnet.CQRS.Caching\Jeninnet.CQRS.Caching.csproj" />
+        <ProjectReference Include="..\..\..\src\Jeninnet.CQRS.Idempotency.EntityFrameworkCore\Jeninnet.CQRS.Idempotency.EntityFrameworkCore.csproj" />
+        <ProjectReference Include="..\..\..\src\Jeninnet.CQRS.Resilience\Jeninnet.CQRS.Resilience.csproj" />
+    </ItemGroup>
+
+</Project>

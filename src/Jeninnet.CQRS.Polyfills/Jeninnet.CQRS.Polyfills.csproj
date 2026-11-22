@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <!-- Source-only compatibility layer. Packable projects link these files instead of
+             referencing this assembly, so no extra runtime assembly is shipped and
+             System.TimeProvider has exactly one identity per target framework. -->
+        <DisableGlobalFramework>true</DisableGlobalFramework>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <IsPackable>false</IsPackable>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <Description>Compile-time polyfills for the Jeninnet.CQRS netstandard2.0 assets.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
+        <PackageReference Include="System.Memory" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" />
+    </ItemGroup>
+
+</Project>

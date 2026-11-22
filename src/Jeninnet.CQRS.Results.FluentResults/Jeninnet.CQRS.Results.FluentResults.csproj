@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>FluentResults result adapter for the Jeninnet CQRS validation pipeline.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentResults" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS.Validation\Jeninnet.CQRS.Validation.csproj" />
+    </ItemGroup>
+
+</Project>

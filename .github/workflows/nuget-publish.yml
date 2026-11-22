@@ -1,0 +1,288 @@
+name: Publish NuGet Packages
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'scripts/release/**'
+      - '.github/workflows/nuget-publish.yml'
+      - 'Directory.Build.props'
+      - 'Directory.Packages.props'
+      - 'Jeninnet.CQRS.slnx'
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  PACKAGES_DIR: artifacts/packages
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  dry-run:
+    name: Pack dry run (PR)
+    if: github.event_name == 'pull_request'
+    runs-on: windows-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Resolve version from Directory.Build.props
+        id: version
+        shell: pwsh
+        run: |
+          $version = dotnet msbuild src/Jeninnet.CQRS/Jeninnet.CQRS.csproj -getProperty:Version -nologo
+          if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($version)) {
+            throw "Could not read Version from Directory.Build.props."
+          }
+          "version=$version" >> $env:GITHUB_OUTPUT
+          Write-Host "Dry-run version: $version"
+
+      - name: Restore dependencies
+        run: dotnet restore Jeninnet.CQRS.slnx
+
+      - name: Build solution
+        run: dotnet build Jeninnet.CQRS.slnx --configuration Release --no-restore -p:Version=${{ steps.version.outputs.version }}
+
+      - name: Pack projects
+        run: >
+          dotnet pack Jeninnet.CQRS.slnx
+          --configuration Release
+          --no-build
+          --no-restore
+          -p:Version=${{ steps.version.outputs.version }}
+          -p:EnablePackageValidation=true
+          --output artifacts/packages-dryrun
+
+      - name: Verify package count, versions, and symbols
+        shell: pwsh
+        run: >
+          ./scripts/release/verify-packages.ps1
+          -Version "${{ steps.version.outputs.version }}"
+          -PackagesDirectory artifacts/packages-dryrun
+          -ExpectedPackageCount 31
+          -ExpectedSymbolCount 29
+
+      - name: Upload dry-run packages
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: nuget-packages-dryrun
+          path: artifacts/packages-dryrun
+          retention-days: 7
+
+  publish:
+    name: Publish to NuGet
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: windows-latest
+    environment:
+      name: production
+
+    permissions:
+      contents: write
+      id-token: write
+      actions: read
+
+    steps:
+      # ---------------------------------------------------------
+      # 1) Checkout repository
+      # ---------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      # ---------------------------------------------------------
+      # 2) Setup .NET
+      # ---------------------------------------------------------
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      # ---------------------------------------------------------
+      # 3) Verify the tag, branch, and CI before doing any work
+      # ---------------------------------------------------------
+      - name: Verify release tag
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $tag = "${{ github.ref_name }}"
+          $version = dotnet msbuild src/Jeninnet.CQRS/Jeninnet.CQRS.csproj -getProperty:Version -nologo
+          if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($version)) {
+            throw "Could not read Version from Directory.Build.props."
+          }
+          if ($tag -ne "v$version") {
+            throw "Tag '$tag' does not match version 'v$version'."
+          }
+
+          git fetch origin main --depth=1
+          git merge-base --is-ancestor "${{ github.sha }}" origin/main
+          if ($LASTEXITCODE -ne 0) {
+            throw "Tagged commit ${{ github.sha }} is not on main."
+          }
+
+          $runsJson = gh api `
+            "repos/$env:GITHUB_REPOSITORY/actions/runs?head_sha=$env:GITHUB_SHA&per_page=100" `
+            --jq '[.workflow_runs[] | {name, status, conclusion, html_url}]'
+          $runs = $runsJson | ConvertFrom-Json
+          $failed = @($runs | Where-Object { $_.status -eq 'completed' -and $_.conclusion -ne 'success' })
+          if ($failed.Count -gt 0) {
+            $failed | ForEach-Object { Write-Host "FAILED: $($_.name) $($_.html_url)" }
+            throw "CI on the tagged commit is not green."
+          }
+          if (-not ($runs | Where-Object { $_.status -eq 'completed' -and $_.conclusion -eq 'success' })) {
+            throw "No successful workflow run found for the tagged commit."
+          }
+
+      # ---------------------------------------------------------
+      # 4) Resolve Version from Tag
+      # ---------------------------------------------------------
+      - name: Resolve version
+        id: version
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Publishing version: $VERSION"
+
+      # ---------------------------------------------------------
+      # 5) Build and Test
+      # ---------------------------------------------------------
+      - name: Restore dependencies
+        run: dotnet restore Jeninnet.CQRS.slnx
+
+      - name: Build solution
+        run: dotnet build Jeninnet.CQRS.slnx --configuration Release --no-restore -p:Version=${{ steps.version.outputs.version }}
+
+      - name: Run tests
+        run: >
+          dotnet test Jeninnet.CQRS.slnx
+          --configuration Release
+          --no-build
+          --no-restore
+          --logger "console;verbosity=normal"
+
+      # ---------------------------------------------------------
+      # 6) Pack all packable projects (samples/tests are non-packable)
+      # ---------------------------------------------------------
+      - name: Create output directory
+        shell: bash
+        run: mkdir -p ${{ env.PACKAGES_DIR }}
+
+      - name: Pack projects
+        run: dotnet pack Jeninnet.CQRS.slnx --configuration Release --no-build --no-restore -p:Version=${{ steps.version.outputs.version }} /p:EnablePackageValidation=true --output ${{ env.PACKAGES_DIR }}
+
+      - name: Verify package count, versions, and symbols
+        shell: pwsh
+        run: >
+          ./scripts/release/verify-packages.ps1
+          -Version "${{ steps.version.outputs.version }}"
+          -PackagesDirectory ${{ env.PACKAGES_DIR }}
+          -ExpectedPackageCount 31
+          -ExpectedSymbolCount 29
+
+      - name: Build release notes from CHANGELOG
+        shell: pwsh
+        run: >
+          ./scripts/release/release-notes.ps1
+          -Version "${{ steps.version.outputs.version }}"
+          -Changelog CHANGELOG.md
+          -Output artifacts/release-notes.md
+
+      - name: Prefer hand-written release notes
+        shell: pwsh
+        run: |
+          $handWritten = "docs/releases/v${{ steps.version.outputs.version }}.md"
+          if (Test-Path $handWritten) {
+            Copy-Item $handWritten artifacts/release-notes.md -Force
+            Write-Host "Using hand-written release notes: $handWritten"
+          }
+          else {
+            Write-Warning "No hand-written release notes at $handWritten; using generated notes."
+          }
+
+      # ---------------------------------------------------------
+      # 7) Upload and Publish
+      # ---------------------------------------------------------
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: nuget-packages-${{ steps.version.outputs.version }}
+          path: ${{ env.PACKAGES_DIR }}
+          retention-days: 30
+
+      - name: NuGet login (OIDC)
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841
+        id: login
+        with:
+          user: ${{ vars.NUGET_USER }}
+
+      # Symbols ride along with this push: NuGet pairs each sibling .snupkg and only
+      # uploads it when the package upload itself succeeds. A separate
+      # `dotnet nuget push *.snupkg` step must NOT exist: on a re-run for an
+      # already-published version it would overwrite the published symbols with PDBs
+      # from a different build (different commit), and nuget.org rejects that with
+      # "The uploaded symbols package contains pdb(s) for a corresponding dll(s)
+      # not found in the nuget package." (NuGet/Home#10475).
+      - name: Push packages to NuGet
+        shell: bash
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        run: |
+          if [ -z "$NUGET_API_KEY" ]; then
+            echo "::error::NuGet returned an empty API key; cannot publish."
+            exit 1
+          fi
+
+          # The glob must stay outside the quotes so bash expands it. A quoted
+          # pattern reaches dotnet nuget push as a literal path.
+          dotnet nuget push "${{ env.PACKAGES_DIR }}"/*.nupkg \
+            --api-key "$NUGET_API_KEY" \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
+
+      # ---------------------------------------------------------
+      # 8) Create GitHub Release
+      # ---------------------------------------------------------
+      - name: Create or update GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          if gh release view "v$VERSION" >/dev/null 2>&1; then
+            gh release edit "v$VERSION" \
+              --title "v$VERSION" \
+              --notes-file artifacts/release-notes.md
+            gh release upload "v$VERSION" \
+              ${{ env.PACKAGES_DIR }}/*.nupkg \
+              ${{ env.PACKAGES_DIR }}/*.snupkg \
+              --clobber
+          else
+            gh release create "v$VERSION" \
+              ${{ env.PACKAGES_DIR }}/*.nupkg \
+              ${{ env.PACKAGES_DIR }}/*.snupkg \
+              --title "v$VERSION" \
+              --notes-file artifacts/release-notes.md
+          fi

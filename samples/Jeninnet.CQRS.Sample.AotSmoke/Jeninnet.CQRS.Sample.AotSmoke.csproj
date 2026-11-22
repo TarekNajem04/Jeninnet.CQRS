@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <!-- EF Core 11 precedent: net11-only is an accepted shape in this repo. -->
+    <DisableGlobalFramework>true</DisableGlobalFramework>
+    <TargetFrameworks>net11.0</TargetFrameworks>
+    <!-- CQRS-10: NativeAOT proof. Trim/AOT warnings fail the build from day one.
+         PublishTrimmed lives HERE (not on the command line) so it never flows as a
+         global property into the netstandard2.0 generator reference. PublishAot
+         implies trimming anyway; the explicit flag covers `-p:PublishAot=false`
+         trim-only runs. -->
+    <PublishAot>true</PublishAot>
+    <PublishTrimmed>true</PublishTrimmed>
+    <IsAotCompatible>true</IsAotCompatible>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- No ICU on minimal CI images; the smoke prints ASCII only. -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <Description>NativeAOT smoke: one command and one query through the generated path.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <ProjectReference Include="..\..\src\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+    <!-- Analyzer-only: never trim/publish the generator itself (netstandard2.0). -->
+    <ProjectReference Include="..\..\src\Jeninnet.CQRS.Generators\Jeninnet.CQRS.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" UndefineProperties="PublishTrimmed;PublishAot;PublishSingleFile;PublishReadyToRun;SelfContained" />
+  </ItemGroup>
+
+</Project>

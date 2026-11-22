@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <TargetFrameworks>net10.0</TargetFrameworks>
+        <!-- The netstandard2.0 assets carry their own System.Text.Json 11 reference; the
+             net10 runtime supplies version 10. The conflict is intentional and resolved by
+             assembly unification at runtime. -->
+        <NoWarn>$(NoWarn);MSB3277</NoWarn>
+        <Description>Runs the netstandard2.0 dispatch and pipeline contract suite.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="MSTest" />
+        <PackageReference Include="MSTest.TestAdapter" />
+        <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS.NetStandard.Contracts\Jeninnet.CQRS.NetStandard.Contracts.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,99 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../src",
+          "files": [
+            "Jeninnet.CQRS/Jeninnet.CQRS.csproj",
+            "Jeninnet.CQRS.AspNetCore/Jeninnet.CQRS.AspNetCore.csproj",
+            "Jeninnet.CQRS.Caching/Jeninnet.CQRS.Caching.csproj",
+            "Jeninnet.CQRS.Diagnostics/Jeninnet.CQRS.Diagnostics.csproj",
+            "Jeninnet.CQRS.FluentValidation/Jeninnet.CQRS.FluentValidation.csproj",
+            "Jeninnet.CQRS.HealthChecks/Jeninnet.CQRS.HealthChecks.csproj",
+            "Jeninnet.CQRS.Idempotency/Jeninnet.CQRS.Idempotency.csproj",
+            "Jeninnet.CQRS.Idempotency.EntityFrameworkCore/Jeninnet.CQRS.Idempotency.EntityFrameworkCore.csproj",
+            "Jeninnet.CQRS.Resilience/Jeninnet.CQRS.Resilience.csproj",
+            "Jeninnet.CQRS.Results.CSharpFunctionalExtensions/Jeninnet.CQRS.Results.CSharpFunctionalExtensions.csproj",
+            "Jeninnet.CQRS.Results.ErrorOr/Jeninnet.CQRS.Results.ErrorOr.csproj",
+            "Jeninnet.CQRS.Results.FluentResults/Jeninnet.CQRS.Results.FluentResults.csproj",
+            "Jeninnet.CQRS.Testing/Jeninnet.CQRS.Testing.csproj",
+            "Jeninnet.CQRS.Serialization.MessagePack/Jeninnet.CQRS.Serialization.MessagePack.csproj",
+            "Jeninnet.CQRS.Serialization.NewtonsoftJson/Jeninnet.CQRS.Serialization.NewtonsoftJson.csproj",
+            "Jeninnet.CQRS.Sagas/Jeninnet.CQRS.Sagas.csproj",
+            "Jeninnet.CQRS.Sagas.EntityFrameworkCore/Jeninnet.CQRS.Sagas.EntityFrameworkCore.csproj",
+            "Jeninnet.CQRS.Transport.Aws/Jeninnet.CQRS.Transport.Aws.csproj",
+            "Jeninnet.CQRS.Transport.AzureServiceBus/Jeninnet.CQRS.Transport.AzureServiceBus.csproj",
+            "Jeninnet.CQRS.Transport.Http/Jeninnet.CQRS.Transport.Http.csproj",
+            "Jeninnet.CQRS.Transport.Kafka/Jeninnet.CQRS.Transport.Kafka.csproj",
+            "Jeninnet.CQRS.Transport.Mqtt/Jeninnet.CQRS.Transport.Mqtt.csproj",
+            "Jeninnet.CQRS.Transport.RabbitMq/Jeninnet.CQRS.Transport.RabbitMq.csproj",
+            "Jeninnet.CQRS.Transport.SignalR/Jeninnet.CQRS.Transport.SignalR.csproj",
+            "Jeninnet.CQRS.Validation/Jeninnet.CQRS.Validation.csproj"
+          ]
+        }
+      ],
+      "dest": "api",
+      "properties": {
+        "TargetFramework": "net11.0"
+      },
+      "disableGitFeatures": true
+    },
+    {
+      "src": [
+        {
+          "src": "../src",
+          "files": [
+            "Jeninnet.CQRS.Analyzers/Jeninnet.CQRS.Analyzers.csproj",
+            "Jeninnet.CQRS.Contracts/Jeninnet.CQRS.Contracts.csproj",
+            "Jeninnet.CQRS.Generators/Jeninnet.CQRS.Generators.csproj"
+          ]
+        }
+      ],
+      "dest": "api",
+      "properties": {
+        "TargetFramework": "netstandard2.0"
+      },
+      "disableGitFeatures": true
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "api/**.yml",
+          "api/**.md"
+        ]
+      },
+      {
+        "files": [
+          "index.md",
+          "packages.md",
+          "XML-DOCS.md",
+          "guides/*.md",
+          "benchmarks/*.md",
+          "adr/*.md"
+        ]
+      },
+      {
+        "src": "..",
+        "files": [
+          "README.md",
+          "ROADMAP.md"
+        ],
+        "dest": "guides"
+      }
+    ],
+    "dest": "_site",
+    "globalMetadata": {
+      "_appTitle": "Jeninnet.CQRS API",
+      "_appFooter": "Jeninnet B.V. — generated from XML documentation.",
+      "_enableSearch": true
+    },
+    "template": [
+      "default",
+      "modern"
+    ],
+    "xrefService": []
+  }
+}

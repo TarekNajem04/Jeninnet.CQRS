@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <Description>End-to-end CQRS demo: validation, retry, caching, and idempotency composed with IOptions configuration.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Jeninnet.Assertions" />
+    <PackageReference Include="Jeninnet.Assertions.MSTest" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+    <ProjectReference Include="..\..\src\Jeninnet.CQRS.Caching\Jeninnet.CQRS.Caching.csproj" />
+    <ProjectReference Include="..\..\src\Jeninnet.CQRS.Generators\Jeninnet.CQRS.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\src\Jeninnet.CQRS.Idempotency\Jeninnet.CQRS.Idempotency.csproj" />
+    <ProjectReference Include="..\..\src\Jeninnet.CQRS.Resilience\Jeninnet.CQRS.Resilience.csproj" />
+    <ProjectReference Include="..\..\src\Jeninnet.CQRS.Validation\Jeninnet.CQRS.Validation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

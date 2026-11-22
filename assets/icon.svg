@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Jeninnet CQRS">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="0.55" stop-color="#121E34"/>
+      <stop offset="1" stop-color="#1B2B4A"/>
+    </linearGradient>
+    <linearGradient id="cmd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#38BDF8"/>
+    </linearGradient>
+    <linearGradient id="qry" x1="1" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#818CF8"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="150" fill="none" stroke="#1E3A5F" stroke-width="2"/>
+  <path d="M140 256 A116 116 0 0 1 372 256" fill="none" stroke="url(#cmd)" stroke-width="30" stroke-linecap="round"/>
+  <path d="M372 256 L342 218 L402 218 Z" fill="#38BDF8"/>
+  <path d="M372 256 A116 116 0 0 1 140 256" fill="none" stroke="url(#qry)" stroke-width="30" stroke-linecap="round"/>
+  <path d="M140 256 L170 294 L110 294 Z" fill="#A78BFA"/>
+  <rect x="216" y="216" width="80" height="80" rx="20" fill="#F8FAFC"/>
+  <circle cx="256" cy="256" r="16" fill="#0B1220"/>
+  <circle cx="256" cy="256" r="8" fill="#22D3EE"/>
+</svg>

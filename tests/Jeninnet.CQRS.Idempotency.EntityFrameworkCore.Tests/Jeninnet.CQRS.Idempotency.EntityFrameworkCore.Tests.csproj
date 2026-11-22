@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <!-- The EF Core store under test is net11-only; so is this project. -->
+        <DisableGlobalFramework>true</DisableGlobalFramework>
+        <TargetFrameworks>net11.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="MSTest" />
+        <PackageReference Include="MSTest.TestAdapter" />
+        <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+        <PackageReference Include="Jeninnet.Assertions" />
+        <PackageReference Include="Jeninnet.Assertions.MSTest" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS.Idempotency.EntityFrameworkCore\Jeninnet.CQRS.Idempotency.EntityFrameworkCore.csproj" />
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS.Idempotency\Jeninnet.CQRS.Idempotency.csproj" />
+    </ItemGroup>
+
+</Project>

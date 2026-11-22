@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>Durable Entity Framework Core idempotency store for the Jeninnet CQRS pipeline.</Description>
+        <!-- Microsoft.EntityFrameworkCore 11 ships a net11.0 leg only, so this
+             package stays net11-only (same override shape as the WebApi sample). -->
+        <DisableGlobalFramework>true</DisableGlobalFramework>
+        <TargetFrameworks>net11.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Microsoft.Extensions.* ships in the net11.0 framework (NU1510);
+             only EntityFrameworkCore needs an explicit reference. -->
+        <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS.Idempotency\Jeninnet.CQRS.Idempotency.csproj" />
+    </ItemGroup>
+
+</Project>

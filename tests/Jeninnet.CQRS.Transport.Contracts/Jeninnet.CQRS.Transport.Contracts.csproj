@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <!-- Shared suite: broker packages reference it; it is not a test project itself. -->
+        <IsTestProject>false</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Jeninnet.Assertions" />
+        <PackageReference Include="Jeninnet.Assertions.MSTest" />
+        <PackageReference Include="MSTest" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+    </ItemGroup>
+
+</Project>

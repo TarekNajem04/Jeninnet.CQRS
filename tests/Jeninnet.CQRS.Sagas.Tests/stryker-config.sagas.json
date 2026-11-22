@@ -1,0 +1,32 @@
+﻿{
+  "stryker-config": {
+    "project": "Jeninnet.CQRS.Sagas.csproj",
+    "target-framework": "net11.0",
+    "configuration": "Debug",
+    "coverage-analysis": "perTest",
+    "concurrency": 4,
+    "mutate": [
+      "SagaDispatcher.cs"
+    ],
+    "ignore-methods": [
+      "ConfigureAwait",
+      "Guard.*"
+    ],
+    "ignore-mutations": [
+      "String"
+    ],
+    "reporters": [
+      "progress",
+      "cleartext",
+      "json",
+      "html"
+    ],
+    "thresholds": {
+      "high": 60,
+      "low": 40,
+      "break": 35
+    }
+  }
+}
+
+

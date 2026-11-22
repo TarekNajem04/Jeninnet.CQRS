@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <!-- Samples are dev-time demos, not shipped libraries. This one stays net11-only:
+         Microsoft.AspNetCore.OpenApi 11's source generator emits OpenAPI v3 / net11-only
+         APIs that have no net10.0 counterpart.
+         (Plural form: a singular TargetFramework would not override the global plural.) -->
+    <DisableGlobalFramework>true</DisableGlobalFramework>
+    <TargetFrameworks>net11.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    </ItemGroup>
+ 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+      <ProjectReference Include="..\..\src\Jeninnet.CQRS.HealthChecks\Jeninnet.CQRS.HealthChecks.csproj" />
+      <ProjectReference Include="..\..\src\Jeninnet.CQRS.Idempotency.EntityFrameworkCore\Jeninnet.CQRS.Idempotency.EntityFrameworkCore.csproj" />
+      <ProjectReference Include="..\..\src\Jeninnet.CQRS.Transport.Http\Jeninnet.CQRS.Transport.Http.csproj" />
+      <ProjectReference Include="..\..\src\Jeninnet.CQRS.Transport.SignalR\Jeninnet.CQRS.Transport.SignalR.csproj" />
+      <ProjectReference Include="..\..\src\Jeninnet.CQRS.Validation\Jeninnet.CQRS.Validation.csproj" />
+    </ItemGroup>
+ 
+ 
+</Project>

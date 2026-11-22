@@ -1,0 +1,37 @@
+{
+  "environment": "Microsoft Windows 10.0.26300",
+  "framework": ".NET 11.0.0",
+  "generatedAtUtc": "2026-11-17T23:21:40.9178014+00:00",
+  "benchmarks": {
+    "Jeninnet.CQRS.Benchmarks.CacheHitBenchmarks.CacheHit": {
+      "medianNanoseconds": 58.61472487449646,
+      "ratioToBaseline": 1,
+      "allocatedBytes": 72
+    },
+    "Jeninnet.CQRS.Benchmarks.DeferredStoreBenchmarks.StageAndComplete": {
+      "medianNanoseconds": 297.381591796875,
+      "ratioToBaseline": 1,
+      "allocatedBytes": 160
+    },
+    "Jeninnet.CQRS.Benchmarks.DispatchBenchmarks.BareHandlerDispatch": {
+      "medianNanoseconds": 1059.265947341919,
+      "ratioToBaseline": 1,
+      "allocatedBytes": 584
+    },
+    "Jeninnet.CQRS.Benchmarks.DispatchBenchmarks.PipelineFourBehaviors": {
+      "medianNanoseconds": 1592.0282363891602,
+      "ratioToBaseline": 1.5029542301290193,
+      "allocatedBytes": 1392
+    },
+    "Jeninnet.CQRS.Benchmarks.EfDeferredStoreBenchmarks.StageListComplete": {
+      "medianNanoseconds": 6230281.640625,
+      "ratioToBaseline": 1,
+      "allocatedBytes": 178794
+    },
+    "Jeninnet.CQRS.Benchmarks.RetryBenchmarks.RetryAfterOneFailure": {
+      "medianNanoseconds": 19027.61993408203,
+      "ratioToBaseline": 1,
+      "allocatedBytes": 1872
+    }
+  }
+}

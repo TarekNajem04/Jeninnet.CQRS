@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>net462;netstandard2.0;net10.0;net11.0</TargetFrameworks>
+        <Description>Source-generated CQRS broker, dispatchers, pipeline behaviors, durable stores, sagas, scheduling, tenancy, and transport abstractions for .NET.</Description>
+        <UseCqrsGuard>true</UseCqrsGuard>
+        <UseCqrsProcessIdentity>true</UseCqrsProcessIdentity>
+        <UseCqrsInt32Compat>true</UseCqrsInt32Compat>
+        <UseCqrsNetStandardAttributes>true</UseCqrsNetStandardAttributes>
+        <UseCqrsTaskWait>true</UseCqrsTaskWait>
+        <UseCqrsLock>true</UseCqrsLock>
+        <UseCqrsCoreShims>true</UseCqrsCoreShims>
+        <UseCqrsTimeProviderDelay>true</UseCqrsTimeProviderDelay>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net462'">
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
+        <PackageReference Include="System.Diagnostics.DiagnosticSource" />
+        <PackageReference Include="System.Memory" />
+        <PackageReference Include="System.Text.Json" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS.Contracts\Jeninnet.CQRS.Contracts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Explicit, not transitive: the net10.0 leg does not inherit these from the
+             framework the way net11.0 does. Central versions in Directory.Packages.props. -->
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+        <PackageReference Include="Microsoft.Extensions.Options" />
+    </ItemGroup>
+
+    <Import Project="..\shared\Transport\Transport.projitems" Label="Shared" />
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="Jeninnet.CQRS.Tests" />
+    </ItemGroup>
+</Project>

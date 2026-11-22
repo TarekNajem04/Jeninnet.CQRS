@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net10.0;net11.0</TargetFrameworks>
+        <UseCqrsGuard>true</UseCqrsGuard>
+        <UseCqrsNetStandardAttributes>true</UseCqrsNetStandardAttributes>
+        <Description>MessagePack message format for the Jeninnet CQRS pipeline.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MessagePack" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+    </ItemGroup>
+
+</Project>

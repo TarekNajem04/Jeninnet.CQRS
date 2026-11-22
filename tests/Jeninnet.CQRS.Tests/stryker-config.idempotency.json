@@ -1,0 +1,28 @@
+﻿{
+  "stryker-config": {
+    "project": "Jeninnet.CQRS.Idempotency.csproj",
+    "target-framework": "net11.0",
+    "configuration": "Debug",
+    "coverage-analysis": "perTest",
+    "concurrency": 4,
+    "mutate": [
+      "IdempotencyBehavior.cs",
+      "DefaultIdempotencyStore.cs"
+    ],
+    "ignore-methods": [
+      "ConfigureAwait",
+      "Guard.*"
+    ],
+    "reporters": [
+      "progress",
+      "cleartext",
+      "json",
+      "html"
+    ],
+    "thresholds": {
+      "high": 100,
+      "low": 98,
+      "break": 95
+    }
+  }
+}

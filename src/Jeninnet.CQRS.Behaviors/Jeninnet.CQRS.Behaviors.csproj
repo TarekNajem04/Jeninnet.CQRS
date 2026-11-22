@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Template project: it is not part of the solution and never ships. -->
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+  </ItemGroup>
+</Project>

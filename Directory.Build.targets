@@ -1,0 +1,71 @@
+<!--
+    Source-only compatibility layer. Packable projects set the UseCqrs* properties in their
+    own csproj; the files are linked into the package assembly instead of referencing a
+    separate polyfill assembly. TimeProvider is deliberately only linked into the core so
+    the public type has exactly one assembly identity.
+-->
+<Project>
+
+    <!-- Samples and tests are not shipped; their public test types do not need XML docs.
+         Packable projects keep CS1591 enabled so the API docs stay complete. -->
+    <PropertyGroup Condition="'$(IsPackable)' == 'false'">
+        <NoWarn>$(NoWarn);1591;CA1859</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(UseCqrsGuard)' == 'true'">
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\Guard.cs"
+                 Link="Polyfills\Guard.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\StringCompat.cs"
+                 Link="Polyfills\StringCompat.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(UseCqrsProcessIdentity)' == 'true'">
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\ProcessIdentity.cs"
+                 Link="Polyfills\ProcessIdentity.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(UseCqrsInt32Compat)' == 'true'">
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\Int32Compat.cs"
+                 Link="Polyfills\Int32Compat.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(UseCqrsCryptoCompat)' == 'true'">
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\CryptoCompat.cs"
+                 Link="Polyfills\CryptoCompat.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(UseCqrsEncodingCompat)' == 'true'">
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\EncodingCompat.cs"
+                 Link="Polyfills\EncodingCompat.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(UseCqrsNetStandardAttributes)' == 'true' and ('$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net462')">
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\Attributes.cs"
+                 Link="Polyfills\Attributes.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(UseCqrsTaskWait)' == 'true' and ('$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net462')">
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\TaskWaitExtensions.cs"
+                 Link="Polyfills\TaskWaitExtensions.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(UseCqrsLock)' == 'true' and ('$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net462')">
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\Lock.cs"
+                 Link="Polyfills\Lock.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(UseCqrsCoreShims)' == 'true' and ('$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net462')">
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\TimeProvider.cs"
+                 Link="Polyfills\TimeProvider.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\ITimer.cs"
+                 Link="Polyfills\ITimer.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\PriorityQueue.cs"
+                 Link="Polyfills\PriorityQueue.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(UseCqrsTimeProviderDelay)' == 'true'">
+        <Compile Include="$(MSBuildThisFileDirectory)src\Jeninnet.CQRS.Polyfills\TimeProviderDelay.cs"
+                 Link="Polyfills\TimeProviderDelay.cs" />
+    </ItemGroup>
+
+</Project>

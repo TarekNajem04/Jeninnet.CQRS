@@ -1,0 +1,32 @@
+﻿{
+  "stryker-config": {
+    "project": "Jeninnet.CQRS.Testing.csproj",
+    "target-framework": "net11.0",
+    "configuration": "Debug",
+    "coverage-analysis": "perTest",
+    "concurrency": 4,
+    "mutate": [
+      "TestCqrsBroker.cs",
+      "CqrsTestAssertions.cs"
+    ],
+    "ignore-methods": [
+      "ConfigureAwait",
+      "Guard.*"
+    ],
+    "ignore-mutations": [
+      "String",
+      "Null coalescing"
+    ],
+    "reporters": [
+      "progress",
+      "cleartext",
+      "json",
+      "html"
+    ],
+    "thresholds": {
+      "high": 100,
+      "low": 100,
+      "break": 100
+    }
+  }
+}

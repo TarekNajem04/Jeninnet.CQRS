@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>Entity Framework Core persistence for Jeninnet CQRS sagas.</Description>
+        <!-- Microsoft.EntityFrameworkCore 11 ships a net11.0 leg only. -->
+        <DisableGlobalFramework>true</DisableGlobalFramework>
+        <TargetFrameworks>net11.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS.Sagas\Jeninnet.CQRS.Sagas.csproj" />
+    </ItemGroup>
+
+</Project>

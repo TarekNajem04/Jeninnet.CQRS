@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>CSharpFunctionalExtensions result adapter for the Jeninnet CQRS validation pipeline.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CSharpFunctionalExtensions" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS.Validation\Jeninnet.CQRS.Validation.csproj" />
+    </ItemGroup>
+
+</Project>

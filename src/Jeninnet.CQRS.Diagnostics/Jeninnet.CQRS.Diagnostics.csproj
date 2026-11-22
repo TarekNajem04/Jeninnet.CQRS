@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net462;netstandard2.0;net10.0;net11.0</TargetFrameworks>
+        <UseCqrsGuard>true</UseCqrsGuard>
+        <UseCqrsNetStandardAttributes>true</UseCqrsNetStandardAttributes>
+        <Description>CQRS pipeline integration for OpenTelemetry tracing and metrics.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net462'">
+        <PackageReference Include="System.Diagnostics.DiagnosticSource" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+    </ItemGroup>
+
+</Project>

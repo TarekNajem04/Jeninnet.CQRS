@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>Enable</Nullable>
+    <IsCqrsSourceGenerated>true</IsCqrsSourceGenerated>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+    <ProjectReference Include="..\..\..\src\Jeninnet.CQRS.Generators\Jeninnet.CQRS.Generators.csproj" />
+  </ItemGroup>
+</Project>

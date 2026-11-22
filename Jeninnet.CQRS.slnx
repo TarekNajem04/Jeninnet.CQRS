@@ -1,0 +1,184 @@
+<Solution>
+  <Folder Name="/Samples/CQRS/">
+    <Project Path="samples/Jeninnet.CQRS.Sample.AotSmoke/Jeninnet.CQRS.Sample.AotSmoke.csproj" />
+    <Project Path="samples/Jeninnet.CQRS.Sample.Console/Jeninnet.CQRS.Sample.Console.csproj" Id="ee0cbc58-0b54-4ce7-8ab2-5c1913210e11" />
+    <Project Path="samples/Jeninnet.CQRS.Sample.NetFramework/Jeninnet.CQRS.Sample.NetFramework.csproj" />
+    <Project Path="samples/Jeninnet.CQRS.Sample.EndToEnd/Jeninnet.CQRS.Sample.EndToEnd.csproj" />
+    <Project Path="samples/Jeninnet.CQRS.Sample.WebApi/Jeninnet.CQRS.Sample.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/.github/">
+    <File Path=".github/CODEOWNERS" />
+    <File Path=".github/COMMUNITY_GUIDELINES.md" />
+    <File Path=".github/dependabot.yml" />
+    <File Path=".github/FUNDING.yml" />
+    <File Path=".github/pull_request_template.md" />
+    <File Path=".github/SECURITY.md" />
+    <File Path=".github/SUPPORT.md" />
+  </Folder>
+  <Folder Name="/.github/ISSUE_TEMPLATE/">
+    <File Path=".github/ISSUE_TEMPLATE/bug_report.yml" />
+    <File Path=".github/ISSUE_TEMPLATE/config.yml" />
+    <File Path=".github/ISSUE_TEMPLATE/feature_request.yml" />
+  </Folder>
+  <Folder Name="/.github/workflows/">
+    <File Path=".github/workflows/auto-approve-dependabot.yml" />
+    <File Path=".github/workflows/ci.yml" />
+    <File Path=".github/workflows/docs-pages.yml" />
+    <File Path=".github/workflows/nuget-publish.yml" />
+    <File Path=".github/workflows/sonarcloud.yml" />
+  </Folder>
+  <Folder Name="/scripts/">
+    <File Path="scripts/README.md" />
+  </Folder>
+  <Folder Name="/scripts/badges/">
+    <File Path="scripts/badges/generate.ps1" />
+  </Folder>
+  <Folder Name="/scripts/clean/">
+    <File Path="scripts/clean/clean.config.json" />
+    <File Path="scripts/clean/clean.ps1" />
+    <File Path="scripts/clean/clean.schema.json" />
+    <File Path="scripts/clean/README.md" />
+  </Folder>
+  <Folder Name="/scripts/common/">
+    <File Path="scripts/common/Common.psd1" />
+    <File Path="scripts/common/Common.psm1" />
+    <File Path="scripts/common/README.md" />
+  </Folder>
+  <Folder Name="/scripts/coverage/">
+    <File Path="scripts/coverage/coverage.config.json" />
+    <File Path="scripts/coverage/coverage.ps1" />
+    <File Path="scripts/coverage/coverage.schema.json" />
+    <File Path="scripts/coverage/README.md" />
+  </Folder>
+  <Folder Name="/scripts/format/">
+    <File Path="scripts/format/format.config.json" />
+    <File Path="scripts/format/format.ps1" />
+    <File Path="scripts/format/format.schema.json" />
+    <File Path="scripts/format/README.md" />
+  </Folder>
+  <Folder Name="/scripts/security/">
+    <File Path="scripts/security/check-vulnerable-packages.ps1" />
+    <File Path="scripts/security/vulnerability-allow-list.json" />
+  </Folder>
+  <Folder Name="/scripts/sonar/">
+    <File Path="scripts/sonar/preview.ps1" />
+    <File Path="scripts/sonar/README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".config/dotnet-tools.json" />
+    <File Path=".config/README.md" />
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="CHANGELOG.md" />
+    <File Path="CODE_OF_CONDUCT.md" />
+    <File Path="CONTRIBUTING.md" />
+    <File Path="DeleteBinObjOutputFolders.bat" />
+    <File Path="DeleteBinObjOutputFolders.ps1" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="Directory.Packages.props" />
+    <File Path="Git-Get-Changed-Files.ps1" />
+    <File Path="ROADMAP.md" />
+    <File Path="constitution.md" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/assets/">
+    <File Path="assets/icon.png" />
+    <File Path="assets/icon-128.png" />
+    <File Path="assets/icon.svg" />
+    <File Path="assets/generate-icon.ps1" />
+    <File Path="assets/README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Jeninnet.CQRS.Generators/Jeninnet.CQRS.Generators.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Polyfills/Jeninnet.CQRS.Polyfills.csproj" />
+    <Project Path="src/Jeninnet.CQRS/Jeninnet.CQRS.csproj" />
+  </Folder>
+  <Folder Name="/src/Analyzers/">
+    <Project Path="src/Jeninnet.CQRS.Analyzers/Jeninnet.CQRS.Analyzers.csproj" />
+    <Project Path="src/Jeninnet.CQRS.AspNetCore/Jeninnet.CQRS.AspNetCore.csproj" />
+  </Folder>
+  <Folder Name="/src/Contracts/">
+    <Project Path="src/Jeninnet.CQRS.Contracts/Jeninnet.CQRS.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/src/ClaimCheck/">
+    <Project Path="src/Jeninnet.CQRS.ClaimCheck.AmazonS3/Jeninnet.CQRS.ClaimCheck.AmazonS3.csproj" />
+    <Project Path="src/Jeninnet.CQRS.ClaimCheck.AzureBlob/Jeninnet.CQRS.ClaimCheck.AzureBlob.csproj" />
+    <Project Path="src/Jeninnet.CQRS.ClaimCheck.FileSystem/Jeninnet.CQRS.ClaimCheck.FileSystem.csproj" />
+  </Folder>
+  <Folder Name="/src/Behaviors/">
+    <Project Path="src/Jeninnet.CQRS.Caching/Jeninnet.CQRS.Caching.csproj" Id="0548efc1-f370-4bd3-a366-b87d244c8177" />
+    <Project Path="src/Jeninnet.CQRS.Diagnostics/Jeninnet.CQRS.Diagnostics.csproj" />
+    <Project Path="src/Jeninnet.CQRS.FluentValidation/Jeninnet.CQRS.FluentValidation.csproj" />
+    <Project Path="src/Jeninnet.CQRS.HealthChecks/Jeninnet.CQRS.HealthChecks.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Idempotency/Jeninnet.CQRS.Idempotency.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Idempotency.EntityFrameworkCore/Jeninnet.CQRS.Idempotency.EntityFrameworkCore.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Resilience/Jeninnet.CQRS.Resilience.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Results.CSharpFunctionalExtensions/Jeninnet.CQRS.Results.CSharpFunctionalExtensions.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Results.ErrorOr/Jeninnet.CQRS.Results.ErrorOr.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Results.FluentResults/Jeninnet.CQRS.Results.FluentResults.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Transport.Aws/Jeninnet.CQRS.Transport.Aws.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Transport.AzureServiceBus/Jeninnet.CQRS.Transport.AzureServiceBus.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Transport.Http/Jeninnet.CQRS.Transport.Http.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Transport.Kafka/Jeninnet.CQRS.Transport.Kafka.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Transport.Mqtt/Jeninnet.CQRS.Transport.Mqtt.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Transport.RabbitMq/Jeninnet.CQRS.Transport.RabbitMq.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Transport.SignalR/Jeninnet.CQRS.Transport.SignalR.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Validation/Jeninnet.CQRS.Validation.csproj" />
+  </Folder>
+  <Folder Name="/src/Sagas/">
+    <Project Path="src/Jeninnet.CQRS.Sagas.EntityFrameworkCore/Jeninnet.CQRS.Sagas.EntityFrameworkCore.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Sagas/Jeninnet.CQRS.Sagas.csproj" />
+  </Folder>
+  <Folder Name="/src/Serialization/">
+    <Project Path="src/Jeninnet.CQRS.Serialization.MessagePack/Jeninnet.CQRS.Serialization.MessagePack.csproj" />
+    <Project Path="src/Jeninnet.CQRS.Serialization.NewtonsoftJson/Jeninnet.CQRS.Serialization.NewtonsoftJson.csproj" />
+  </Folder>
+  <Folder Name="/src/Testing/">
+    <Project Path="src/Jeninnet.CQRS.Testing/Jeninnet.CQRS.Testing.csproj" />
+  </Folder>
+  <Folder Name="/Benchmarks/">
+    <Project Path="tests/Benchmarks/CqrsBenchmarks/CqrsBenchmarks.csproj" />
+  </Folder>
+  <Folder Name="/badges/">
+    <File Path="badges/frameworks.svg" />
+    <File Path="badges/packages.svg" />
+    <File Path="badges/architecture.svg" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <File Path="src/shared/README.md" />
+  </Folder>
+  <Folder Name="/src/Shared/Transport/">
+    <File Path="src/shared/Transport/TransportOperation.cs" />
+    <File Path="src/shared/Transport/Transport.projitems" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="tests/Jeninnet.CQRS.Analyzers.Tests/Jeninnet.CQRS.Analyzers.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.AspNetCore.Tests/Jeninnet.CQRS.AspNetCore.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.ClaimCheck.Contracts/Jeninnet.CQRS.ClaimCheck.Contracts.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Contracts.Tests/Jeninnet.CQRS.Contracts.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.ClaimCheck.Tests/Jeninnet.CQRS.ClaimCheck.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Idempotency.EntityFrameworkCore.Tests/Jeninnet.CQRS.Idempotency.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.IntegrationTests/Jeninnet.CQRS.IntegrationTests.csproj" Id="5b56cb37-744b-4446-a8c7-3712efdc8845" />
+    <Project Path="tests/Jeninnet.CQRS.NetStandard.Contracts/Jeninnet.CQRS.NetStandard.Contracts.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.NetStandard.Tests/Jeninnet.CQRS.NetStandard.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Sagas.Contracts/Jeninnet.CQRS.Sagas.Contracts.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Sagas.EntityFrameworkCore.Tests/Jeninnet.CQRS.Sagas.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Sagas.Tests/Jeninnet.CQRS.Sagas.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Serialization.Tests/Jeninnet.CQRS.Serialization.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Tests/Jeninnet.CQRS.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Transport.Aws.Tests/Jeninnet.CQRS.Transport.Aws.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Transport.AzureServiceBus.Tests/Jeninnet.CQRS.Transport.AzureServiceBus.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Transport.Contracts/Jeninnet.CQRS.Transport.Contracts.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Transport.Http.Tests/Jeninnet.CQRS.Transport.Http.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Transport.Kafka.Tests/Jeninnet.CQRS.Transport.Kafka.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Transport.Mqtt.Tests/Jeninnet.CQRS.Transport.Mqtt.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Transport.RabbitMq.Tests/Jeninnet.CQRS.Transport.RabbitMq.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Transport.SignalR.Tests/Jeninnet.CQRS.Transport.SignalR.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Transports.Tests/Jeninnet.CQRS.Transports.Tests.csproj" />
+    <Project Path="tests/Jeninnet.CQRS.Validation.Tests/Jeninnet.CQRS.Validation.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,28 @@
+﻿{
+  "stryker-config": {
+    "project": "Jeninnet.CQRS.Resilience.csproj",
+    "target-framework": "net11.0",
+    "configuration": "Debug",
+    "coverage-analysis": "perTest",
+    "concurrency": 4,
+    "mutate": [
+      "RateLimitBehavior.cs",
+      "PartitionedConcurrencyBehavior.cs"
+    ],
+    "ignore-methods": [
+      "ConfigureAwait",
+      "Guard.*"
+    ],
+    "reporters": [
+      "progress",
+      "cleartext",
+      "json",
+      "html"
+    ],
+    "thresholds": {
+      "high": 100,
+      "low": 100,
+      "break": 100
+    }
+  }
+}

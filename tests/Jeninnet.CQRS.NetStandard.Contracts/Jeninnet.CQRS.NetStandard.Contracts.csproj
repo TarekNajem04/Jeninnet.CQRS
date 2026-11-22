@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <DisableGlobalFramework>true</DisableGlobalFramework>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <IsPackable>false</IsPackable>
+        <UseCqrsNetStandardAttributes>true</UseCqrsNetStandardAttributes>
+        <Description>Dispatch and pipeline contract suite compiled against the netstandard2.0 assets.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Jeninnet.Assertions" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS.Caching\Jeninnet.CQRS.Caching.csproj" />
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS.Diagnostics\Jeninnet.CQRS.Diagnostics.csproj" />
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS.Idempotency\Jeninnet.CQRS.Idempotency.csproj" />
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS.Resilience\Jeninnet.CQRS.Resilience.csproj" />
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS.Testing\Jeninnet.CQRS.Testing.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,26 @@
+- name: Overview
+  href: README.md
+- name: ADR-0001 Validation stays off netstandard2.0
+  href: ADR-0001-validation-netstandard2.md
+- name: ADR-0002 Result adapters stay off netstandard2.0
+  href: ADR-0002-results-netstandard2.md
+- name: ADR-0003 FluentValidation bridge stays off netstandard2.0
+  href: ADR-0003-fluentvalidation-netstandard2.md
+- name: ADR-0004 EF Core stores stay net11.0-only
+  href: ADR-0004-efcore-netstandard2.md
+- name: ADR-0005 ASP.NET Core endpoint mapping stays on modern TFMs
+  href: ADR-0005-aspnetcore-netstandard2.md
+- name: ADR-0006 net462 dispatch boundary
+  href: ADR-0006-net462-dispatch-boundary.md
+- name: ADR-0007 GCS claim-check provider deferred
+  href: ADR-0007-gcs-claim-check-deferred.md
+- name: ADR-0008 Cold-storage export deferred
+  href: ADR-0008-cold-storage-export-deferred.md
+- name: ADR-0009 Handler contracts stay in core
+  href: ADR-0009-handler-contracts-stay-in-core.md
+- name: ADR-0010 SignalR transport stays on modern TFMs
+  href: ADR-0010-signalr-modern-tfms.md
+- name: ADR-0011 MQTT stays on MQTTnet 4.3
+  href: ADR-0011-mqttnet-4-netstandard.md
+- name: ADR template
+  href: TEMPLATE.md

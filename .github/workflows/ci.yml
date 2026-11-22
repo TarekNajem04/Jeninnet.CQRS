@@ -1,0 +1,442 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    # Nightly mutation gate; Stryker runs are intentionally not per-PR.
+    - cron: '0 3 * * *'
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'samples/**'
+      - 'scripts/**'
+      - 'scripts/benchmarks/**'
+      - 'docs/**'
+      - '**.csproj'
+      - '**.slnx'
+      - 'Directory.Build.props'
+      - 'Directory.Build.targets'
+      - 'Directory.Packages.props'
+      - 'global.json'
+      - 'README.md'
+      - '.editorconfig'
+      - '.github/workflows/ci.yml'
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'samples/**'
+      - 'scripts/**'
+      - 'scripts/benchmarks/**'
+      - 'docs/**'
+      - '**.csproj'
+      - '**.slnx'
+      - 'Directory.Build.props'
+      - 'Directory.Build.targets'
+      - 'Directory.Packages.props'
+      - 'global.json'
+      - 'README.md'
+      - '.editorconfig'
+      - '.github/workflows/ci.yml'
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  format:
+
+    name: Format
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 20
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup .NET SDK (global.json)
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore Jeninnet.CQRS.slnx
+
+      # dotnet format loads a design-time build. Source generators must already be
+      # built, otherwise generated registrations are missing on a clean checkout.
+      - name: Build (generated sources)
+        run: dotnet build Jeninnet.CQRS.slnx --configuration Debug --no-restore
+
+      - name: Verify formatting
+        run: dotnet format Jeninnet.CQRS.slnx --verify-no-changes --no-restore
+
+  hygiene:
+
+    name: C# Hygiene
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 15
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup .NET SDK (global.json)
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Check file headers
+        shell: pwsh
+        run: ./scripts/maintenance/Manage-FileHeaders.ps1 -Check
+
+      - name: Check namespace spacing
+        shell: pwsh
+        run: ./scripts/maintenance/Ensure-NamespaceSpacing.ps1 -Check
+
+      - name: Check global usings
+        shell: pwsh
+        run: ./scripts/maintenance/Move-UsingsToGlobalUsings.ps1 -Check
+
+      - name: Restore
+        run: dotnet restore Jeninnet.CQRS.slnx
+
+      - name: Verify formatting
+        run: dotnet format Jeninnet.CQRS.slnx --verify-no-changes --no-restore
+
+  build-and-test:
+
+    name: Build & Test (${{ matrix.os }})
+
+    runs-on: ${{ matrix.os }}
+
+    timeout-minutes: 60
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+          - macos-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDK (global.json)
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore Jeninnet.CQRS.slnx
+
+      - name: Build
+        run: dotnet build Jeninnet.CQRS.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: >
+          dotnet test Jeninnet.CQRS.slnx
+          --configuration Release
+          --no-build
+          --blame-hang-timeout 3m
+          --logger "trx;LogFileName=results.trx"
+          --results-directory TestResults/${{ matrix.os }}
+
+      - name: net462 dispatch smoke
+        if: runner.os == 'Windows'
+        run: samples/Jeninnet.CQRS.Sample.NetFramework/bin/Release/net462/Jeninnet.CQRS.Sample.NetFramework.exe
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: test-results-${{ matrix.os }}
+          path: TestResults/${{ matrix.os }}
+
+  mutation:
+
+    name: Mutation (nightly)
+
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+
+    runs-on: windows-latest
+
+    timeout-minutes: 120
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup .NET SDK (global.json)
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Restore tools
+        run: dotnet tool restore
+
+      - name: Restore
+        run: dotnet restore Jeninnet.CQRS.slnx
+
+      - name: Run Stryker suites
+        shell: pwsh
+        run: ./scripts/mutation/run-all.ps1
+
+      - name: Upload mutation dashboard
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: mutation-dashboard
+          path: artifacts/mutation
+          retention-days: 30
+
+  benchmarks:
+
+    name: Benchmarks (dispatch fast set)
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 20
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDK (global.json)
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore tests/Benchmarks/CqrsBenchmarks/CqrsBenchmarks.csproj
+
+      # Default job (5 warmups / 10 iterations) for a stable ratio; a local quick
+      # reproduction can add "--job short" (documented in docs/benchmarks/README.md).
+      - name: Run dispatch benchmarks
+        env:
+          BENCHMARK_OUTPUT: artifacts/benchmarks/current.json
+        run: >
+          dotnet run --project tests/Benchmarks/CqrsBenchmarks
+          --configuration Release
+          --no-restore
+          -- --filter "*Dispatch*"
+
+      - name: Compare against baseline (20% threshold)
+        shell: pwsh
+        run: >
+          ./scripts/benchmarks/compare.ps1
+          -Baseline docs/benchmarks/baseline.linux.json
+          -Current artifacts/benchmarks/current.json
+
+  coverage:
+
+    name: Coverage Gate
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 60
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup .NET SDK (global.json)
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Restore tools
+        run: dotnet tool restore
+
+      - name: Restore
+        run: dotnet restore Jeninnet.CQRS.slnx
+
+      - name: Build
+        run: dotnet build Jeninnet.CQRS.slnx --configuration Release --no-restore
+
+      - name: Test with coverage
+        run: >
+          dotnet test Jeninnet.CQRS.slnx
+          --configuration Release
+          --no-build
+          --collect:"XPlat Code Coverage;Format=cobertura"
+          --results-directory TestResults/Coverage
+
+      - name: Merge coverage
+        run: >
+          dotnet reportgenerator
+          -reports:"TestResults/Coverage/**/coverage.cobertura.xml"
+          -targetdir:artifacts/coverage
+          -reporttypes:"Cobertura;Html;TextSummary"
+          -assemblyfilters:"+Jeninnet.CQRS*;-*Tests*;-*Benchmarks*;-*Samples*"
+
+      - name: Enforce coverage floor
+        shell: pwsh
+        run: >
+          ./scripts/coverage/check-coverage.ps1
+          -Report artifacts/coverage/Cobertura.xml
+          -ConfigurationPath scripts/coverage/coverage.config.json
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: coverage-report
+          path: artifacts/coverage
+          retention-days: 30
+
+  docs:
+
+    name: API Docs
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 30
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup .NET SDK (global.json)
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Restore tools
+        run: dotnet tool restore
+
+      - name: Restore
+        run: dotnet restore Jeninnet.CQRS.slnx
+
+      # The site is generated from XML comments; CS1591 is enforced for shipped
+      # packages, and --warningsAsErrors keeps unresolved crefs/links out.
+      - name: Generate API metadata
+        run: dotnet docfx metadata docs/docfx.json
+
+      - name: Build site
+        run: dotnet docfx build docs/docfx.json --warningsAsErrors
+
+      - name: Upload API site (main)
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: api-docs
+          path: docs/_site
+
+  aot-smoke:
+
+    name: AOT Smoke (linux-x64)
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 30
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup .NET SDK (global.json)
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      # Full NativeAOT compile: ILLink analysis plus native codegen. Trim/AOT
+      # warnings are errors (TreatWarningsAsErrors in the sample project), so a
+      # clean publish is the proof. Needs a native toolchain (clang on Linux).
+      - name: Publish NativeAOT (linux-x64)
+        run: dotnet publish samples/Jeninnet.CQRS.Sample.AotSmoke -f net11.0 --configuration Release --runtime linux-x64
+
+      - name: Run AOT binary (dispatch)
+        run: ./samples/Jeninnet.CQRS.Sample.AotSmoke/bin/Release/net11.0/linux-x64/publish/Jeninnet.CQRS.Sample.AotSmoke
+
+      # CQRS-39: stage in one process, then recover and dispatch in a fresh one.
+      # Both commands are rehydrated by the generated registry, not reflection.
+      - name: Stage deferred commands (process 1)
+        run: ./samples/Jeninnet.CQRS.Sample.AotSmoke/bin/Release/net11.0/linux-x64/publish/Jeninnet.CQRS.Sample.AotSmoke stage /tmp/jeninnet-cqrs-aot-deferred.jsonl
+
+      - name: Replay deferred commands (process 2)
+        run: ./samples/Jeninnet.CQRS.Sample.AotSmoke/bin/Release/net11.0/linux-x64/publish/Jeninnet.CQRS.Sample.AotSmoke replay /tmp/jeninnet-cqrs-aot-deferred.jsonl
+
+  dependency-review:
+
+    name: Dependency Review
+
+    if: github.event_name == 'pull_request'
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: read
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Review dependency changes
+        uses: actions/dependency-review-action@v5.0.1
+        with:
+          fail-on-severity: high
+
+  vulnerability-check:
+
+    name: Vulnerability Check
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 20
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup .NET SDK (global.json)
+        uses: actions/setup-dotnet@v6.1.0
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore Jeninnet.CQRS.slnx
+
+      - name: Audit NuGet dependencies
+        shell: pwsh
+        run: ./scripts/security/check-vulnerable-packages.ps1

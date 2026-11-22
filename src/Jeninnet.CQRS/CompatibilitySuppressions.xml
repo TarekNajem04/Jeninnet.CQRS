@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Conditional public polyfills. System.TimeProvider and System.Threading.ITimer are public on
+    netstandard2.0 because the core API exposes those types through the source-linked shims; on
+    net10.0/net11.0 the same identities resolve to the BCL. Package validation compares the two
+    assets and reports them as netstandard-only APIs, so suppress only these two CP0001 rows.
+    https://learn.microsoft.com/dotnet/fundamentals/package-validation/diagnostic-ids
+-->
+<Suppressions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Suppression>
+    <DiagnosticId>CP0001</DiagnosticId>
+    <Target>T:System.Threading.ITimer</Target>
+    <Left>lib/netstandard2.0/Jeninnet.CQRS.dll</Left>
+    <Right>lib/net10.0/Jeninnet.CQRS.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0001</DiagnosticId>
+    <Target>T:System.TimeProvider</Target>
+    <Left>lib/netstandard2.0/Jeninnet.CQRS.dll</Left>
+    <Right>lib/net10.0/Jeninnet.CQRS.dll</Right>
+  </Suppression>
+</Suppressions>

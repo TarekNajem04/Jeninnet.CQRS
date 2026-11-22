@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <!-- The storage SDKs and the container fixtures are net11-only. -->
+        <DisableGlobalFramework>true</DisableGlobalFramework>
+        <TargetFrameworks>net11.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AWSSDK.S3" />
+        <PackageReference Include="Azure.Storage.Blobs" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="MSTest" />
+        <PackageReference Include="MSTest.TestAdapter" />
+        <PackageReference Include="Testcontainers" />
+        <PackageReference Include="Testcontainers.LocalStack" />
+        <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+        <PackageReference Include="Jeninnet.Assertions" />
+        <PackageReference Include="Jeninnet.Assertions.MSTest" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS.ClaimCheck.AmazonS3\Jeninnet.CQRS.ClaimCheck.AmazonS3.csproj" />
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS.ClaimCheck.AzureBlob\Jeninnet.CQRS.ClaimCheck.AzureBlob.csproj" />
+        <ProjectReference Include="..\..\src\Jeninnet.CQRS.ClaimCheck.FileSystem\Jeninnet.CQRS.ClaimCheck.FileSystem.csproj" />
+        <ProjectReference Include="..\Jeninnet.CQRS.ClaimCheck.Contracts\Jeninnet.CQRS.ClaimCheck.Contracts.csproj" />
+    </ItemGroup>
+
+</Project>

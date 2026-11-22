@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net462;netstandard2.0;net10.0;net11.0</TargetFrameworks>
+        <UseCqrsGuard>true</UseCqrsGuard>
+        <UseCqrsNetStandardAttributes>true</UseCqrsNetStandardAttributes>
+        <UseCqrsTaskWait>true</UseCqrsTaskWait>
+        <Description>CQRS pipeline integration for the Jeninnet resilience engine.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Threading.RateLimiting" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
+    </ItemGroup>
+    
+</Project>

@@ -1,0 +1,14 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!--
+        Shared transport send/publish lifecycle. Imported by every transport so the observer
+        notifications and cancellation semantics stay identical without a runtime assembly
+        dependency.
+    -->
+    <ItemGroup>
+        <Compile Include="$(MSBuildThisFileDirectory)TransportOperation.cs" Link="TransportOperation.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)TransportEnvelopeFactory.cs" Link="TransportEnvelopeFactory.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)TransportEnvelopeBuilder.cs" Link="TransportEnvelopeBuilder.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)TransportReconnect.cs" Link="TransportReconnect.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)TransportShutdown.cs" Link="TransportShutdown.cs" />
+    </ItemGroup>
+</Project>
