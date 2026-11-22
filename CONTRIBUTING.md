@@ -8,40 +8,55 @@ long-term API stability.
 
 ## Current Project Status
 
-Jeninnet.CQRS is in active preview. The validation engine was extracted to the standalone
-[`Jeninnet.Validation`](https://github.com/TarekNajem04/Jeninnet.Validation) repository, and
-this solution now consumes it as a NuGet package. `1.0.0-preview.1` is the first public preview;
-the public surface can still change before the stable `1.0.0` release.
+Jeninnet.CQRS is in a focused stabilization phase for `1.0.0-preview.2` and the upcoming stable
+release. The validation engine lives in the standalone
+[`Jeninnet.Validation`](https://github.com/TarekNajem04/Jeninnet.Validation) repository and is
+consumed here as a NuGet package. The public surface may still change before `1.0.0`.
 
-To maintain consistency and avoid unnecessary breaking changes, **source-code contributions are
-temporarily limited to project maintainers**.
+## Contribution Status
 
-## How You Can Contribute Today
+**We are not accepting external code contributions at this time.** This is a deliberate, temporary
+decision, not a judgment about the value of your work:
 
-Community participation is highly appreciated.
+- the maintainer's available time is committed to stabilizing the API, the documentation, and the
+  release gates;
+- we cannot currently provide the code review, testing, and follow-up support that a contribution
+  deserves;
+- accepting a change we cannot review properly would be worse for the project than declining it
+  with a clear explanation.
 
-The most valuable contributions at this stage are:
+We will reopen contributions once the API and the release process are stable. Until then, please do
+not open pull requests, including documentation pull requests. This page will be updated with the
+contributor guide, review process, and required checks when the window opens.
 
-- Bug reports
-- Feature requests
-- Design discussions
-- API design feedback
-- Documentation improvements
-- Source-generator behavior observations
-- Security observations
-- Real-world usage feedback
+## How You Can Help Today
 
-Please use GitHub Issues or Discussions to share ideas and suggestions.
+Bug reports, feature requests, design and API feedback, real-world usage reports, and security
+observations are genuinely valuable and remain welcome. Please use GitHub Issues or Discussions,
+and report security issues through [`SECURITY.md`](.github/SECURITY.md) rather than a public issue.
+That feedback helps us stabilize the project without adding unreviewed code.
 
 ## Pull Requests
 
-At the current stage of the project:
+At the current stage:
 
-- Pull requests containing source-code changes may not be accepted.
-- Pull requests that improve documentation may be considered on a case-by-case basis.
-- Large design proposals should begin as an Issue or Discussion before implementation.
+- We are not accepting pull requests.
+- Unsolicited pull requests will be closed with a link to this policy.
+- If the maintainer asks for a specific fix, the invitation and its scope will be stated in the
+  relevant issue. That is the only exception.
 
-Once the project reaches a stable baseline, external code contributions will be opened publicly.
+## Future Contributor Program
+
+When the project reaches a stable baseline, the contribution window will reopen with:
+
+- a documented pull-request process and review expectations;
+- the required checks (build, tests, format, documentation, and the quality gate);
+- API-change and compatibility rules;
+- documentation and test expectations for every change;
+- the code of conduct and security process.
+
+Until then, thank you for your interest, your patience, and the reports that help make the project
+better.
 
 ## Project Structure
 
@@ -83,7 +98,9 @@ preferred over short-term convenience.
 
 ## Development Standards
 
-Run the following before sending a change:
+These are the gates a future contribution will need to satisfy. They are documented now so the bar
+is clear when contributions reopen; they are not an invitation to open a pull request during the
+stabilization phase.
 
 ```powershell
 dotnet build Jeninnet.CQRS.slnx
