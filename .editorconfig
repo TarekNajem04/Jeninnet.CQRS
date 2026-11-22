@@ -1,38 +1,81 @@
-# Remove the line below if you want to inherit .editorconfig settings from higher directories
+# ============================================================================
+# Jeninnet.CQRS — canonical editor configuration
+# ============================================================================
+# This file is the CQRS implementation of the Jeninnet family baseline. It is
+# intentionally explicit: formatting, naming, analyzer policy, generated-code
+# exceptions, and test exceptions are grouped so a contributor can find the
+# rule that applies without guessing.
+#
+# Family baseline: ..\github-template-settings\editorconfig\Jeninnet.editorconfig
+# Keep the common sections in sync with that file; repository-specific analyzer
+# exceptions belong at the bottom with a short reason.
+#
+# Conventions:
+#   - text files are UTF-8 (no BOM);
+#   - C# and Razor are UTF-8 with BOM;
+#   - line endings are LF and files end with a newline;
+#   - indentation is four spaces unless a file-type section overrides it.
+# ============================================================================
+
 root = true
 
-#### Core EditorConfig Options ####
-# Don't use tabs for indentation.
+# ----------------------------------------------------------------------------
+# All files
+# ----------------------------------------------------------------------------
 [*]
-# Indentation and spacing
-tab_width = 4
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
 indent_style = space
-
-# (Please don't specify an indent_size here; that has too many unintended consequences.)
-trim_trailing_whitespace = true
-spelling_exclusion_path = SpellingExclusions.dic
-
-csharp_prefer_system_threading_lock = true:suggestion
-
-# Code files
-[*.{cs,csx,vb,vbx,razor}]
 indent_size = 4
-charset = utf-8-bom
+tab_width = 4
+trim_trailing_whitespace = true
 
-# Xml project files
+# ----------------------------------------------------------------------------
+# MSBuild project and solution files
+# ----------------------------------------------------------------------------
 [*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
 indent_size = 4
 
-# Xml config files
 [*.{props,targets,ruleset,config,nuspec,resx,vsixmanifest,vsct}]
 indent_size = 4
 
-# JSON files
+[*.{sln,slnx}]
+indent_size = 2
+
+# ----------------------------------------------------------------------------
+# Data and configuration files
+# ----------------------------------------------------------------------------
 [*.json]
 indent_size = 4
 
-# C# files
-[*.{cs,vb,razor}]
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.{xml,xsd,svg}]
+indent_size = 4
+
+# ----------------------------------------------------------------------------
+# Documentation and scripts
+# ----------------------------------------------------------------------------
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{ps1,psm1,psd1}]
+indent_size = 4
+
+[*.{sh,bash}]
+indent_size = 4
+
+# ----------------------------------------------------------------------------
+# C# and Razor
+# ----------------------------------------------------------------------------
+[*.{cs,csx,razor}]
+charset = utf-8-bom
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+csharp_prefer_system_threading_lock = true:suggestion
 # ===== Repository style policy =====
 # Public API namespaces are stable and intentionally do not mirror folder layout.
 dotnet_diagnostic.IDE0130.severity = none
@@ -233,7 +276,7 @@ csharp_using_directive_placement = outside_namespace:suggestion
 
 # New line preferences
 end_of_line = lf
-insert_final_newline = false
+insert_final_newline = true
 dotnet_style_allow_multiple_blank_lines_experimental = false:suggestion
 dotnet_style_allow_statement_immediately_after_block_experimental = false:suggestion
 csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = true:suggestion
@@ -301,9 +344,9 @@ dotnet_naming_rule.types_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.types_should_be_pascal_case.symbols = types
 dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
 
-dotnet_naming_rule.async_method_should_be_async_methode.severity = suggestion
-dotnet_naming_rule.async_method_should_be_async_methode.symbols = async_method
-dotnet_naming_rule.async_method_should_be_async_methode.style = async_methode
+dotnet_naming_rule.async_method_should_be_async_method.severity = suggestion
+dotnet_naming_rule.async_method_should_be_async_method.symbols = async_method
+dotnet_naming_rule.async_method_should_be_async_method.style = async_method
 
 dotnet_naming_rule.constant_should_be_constant_all_upper.severity = suggestion
 dotnet_naming_rule.constant_should_be_constant_all_upper.symbols = constant
@@ -356,10 +399,10 @@ dotnet_naming_style.begins_with__.required_suffix =
 dotnet_naming_style.begins_with__.word_separator = 
 dotnet_naming_style.begins_with__.capitalization = camel_case
 
-dotnet_naming_style.async_methode.required_prefix = 
-dotnet_naming_style.async_methode.required_suffix = Async
-dotnet_naming_style.async_methode.word_separator = 
-dotnet_naming_style.async_methode.capitalization = pascal_case
+dotnet_naming_style.async_method.required_prefix = 
+dotnet_naming_style.async_method.required_suffix = Async
+dotnet_naming_style.async_method.word_separator = 
+dotnet_naming_style.async_method.capitalization = pascal_case
 
 dotnet_naming_style.constant_all_upper.required_prefix = 
 dotnet_naming_style.constant_all_upper.required_suffix = 
@@ -367,3 +410,30 @@ dotnet_naming_style.constant_all_upper.word_separator = _
 dotnet_naming_style.constant_all_upper.capitalization = all_upper
 csharp_prefer_static_anonymous_function = true:suggestion
 
+# ----------------------------------------------------------------------------
+# Tests
+# ----------------------------------------------------------------------------
+[tests/**/*.cs]
+dotnet_naming_rule.async_method_should_be_async_method.severity = none
+dotnet_diagnostic.MSTEST0049.severity = none
+dotnet_diagnostic.MSTEST0051.severity = none
+
+# ----------------------------------------------------------------------------
+# Generated code
+# ----------------------------------------------------------------------------
+[**/Generated/**]
+[**/*.g.cs]
+[**/*.Designer.cs]
+[**/obj/**]
+[**/bin/**]
+generated_code = true
+
+# ----------------------------------------------------------------------------
+# Snapshot-test review files
+# ----------------------------------------------------------------------------
+[*.{received,verified}.{txt,json,xml}]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = false
+trim_trailing_whitespace = false
+indent_size = 2
