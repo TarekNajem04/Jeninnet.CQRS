@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <IsPackable>false</IsPackable>
-        <!-- Shared suite: the in-memory and EF test projects derive from it. -->
+        <!-- Shared suite: broker packages reference it; it is not a test project itself. -->
         <IsTestProject>false</IsTestProject>
     </PropertyGroup>
 
@@ -13,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Jeninnet.CQRS.Sagas\Jeninnet.CQRS.Sagas.csproj" />
+        <ProjectReference Include="..\..\..\src\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
     </ItemGroup>
 
 </Project>

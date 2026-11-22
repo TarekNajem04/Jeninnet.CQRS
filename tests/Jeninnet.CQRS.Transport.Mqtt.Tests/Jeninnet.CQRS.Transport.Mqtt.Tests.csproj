@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <IsPackable>false</IsPackable>
@@ -22,7 +22,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\Jeninnet.CQRS.Transport.Mqtt\Jeninnet.CQRS.Transport.Mqtt.csproj" />
-        <ProjectReference Include="..\Jeninnet.CQRS.Transport.Contracts\Jeninnet.CQRS.Transport.Contracts.csproj" />
+        <ProjectReference Include="..\shared\Jeninnet.CQRS.Transport.Contracts\Jeninnet.CQRS.Transport.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

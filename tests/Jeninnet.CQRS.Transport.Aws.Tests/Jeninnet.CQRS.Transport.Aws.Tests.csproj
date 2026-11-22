@@ -23,7 +23,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\Jeninnet.CQRS.Transport.Aws\Jeninnet.CQRS.Transport.Aws.csproj" />
-        <ProjectReference Include="..\Jeninnet.CQRS.Transport.Contracts\Jeninnet.CQRS.Transport.Contracts.csproj" />
+        <ProjectReference Include="..\shared\Jeninnet.CQRS.Transport.Contracts\Jeninnet.CQRS.Transport.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

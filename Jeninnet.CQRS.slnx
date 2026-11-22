@@ -161,14 +161,12 @@
     <Project Path="tests/Jeninnet.CQRS.IntegrationTests/Jeninnet.CQRS.IntegrationTests.csproj" Id="5b56cb37-744b-4446-a8c7-3712efdc8845" />
     <Project Path="tests/Jeninnet.CQRS.NetStandard.Contracts/Jeninnet.CQRS.NetStandard.Contracts.csproj" />
     <Project Path="tests/Jeninnet.CQRS.NetStandard.Tests/Jeninnet.CQRS.NetStandard.Tests.csproj" />
-    <Project Path="tests/Jeninnet.CQRS.Sagas.Contracts/Jeninnet.CQRS.Sagas.Contracts.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Sagas.EntityFrameworkCore.Tests/Jeninnet.CQRS.Sagas.EntityFrameworkCore.Tests.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Sagas.Tests/Jeninnet.CQRS.Sagas.Tests.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Serialization.Tests/Jeninnet.CQRS.Serialization.Tests.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Tests/Jeninnet.CQRS.Tests.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Transport.Aws.Tests/Jeninnet.CQRS.Transport.Aws.Tests.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Transport.AzureServiceBus.Tests/Jeninnet.CQRS.Transport.AzureServiceBus.Tests.csproj" />
-    <Project Path="tests/Jeninnet.CQRS.Transport.Contracts/Jeninnet.CQRS.Transport.Contracts.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Transport.Http.Tests/Jeninnet.CQRS.Transport.Http.Tests.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Transport.Kafka.Tests/Jeninnet.CQRS.Transport.Kafka.Tests.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Transport.Mqtt.Tests/Jeninnet.CQRS.Transport.Mqtt.Tests.csproj" />
@@ -176,5 +174,9 @@
     <Project Path="tests/Jeninnet.CQRS.Transport.SignalR.Tests/Jeninnet.CQRS.Transport.SignalR.Tests.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Transports.Tests/Jeninnet.CQRS.Transports.Tests.csproj" />
     <Project Path="tests/Jeninnet.CQRS.Validation.Tests/Jeninnet.CQRS.Validation.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Shared/">
+    <Project Path="tests/shared/Jeninnet.CQRS.Sagas.Contracts/Jeninnet.CQRS.Sagas.Contracts.csproj" />
+    <Project Path="tests/shared/Jeninnet.CQRS.Transport.Contracts/Jeninnet.CQRS.Transport.Contracts.csproj" />
   </Folder>
 </Solution>

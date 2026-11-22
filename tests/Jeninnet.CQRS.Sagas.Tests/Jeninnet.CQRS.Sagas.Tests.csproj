@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <IsPackable>false</IsPackable>
@@ -19,7 +19,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\Jeninnet.CQRS.Sagas\Jeninnet.CQRS.Sagas.csproj" />
         <ProjectReference Include="..\..\src\Jeninnet.CQRS.HealthChecks\Jeninnet.CQRS.HealthChecks.csproj" />
-        <ProjectReference Include="..\Jeninnet.CQRS.Sagas.Contracts\Jeninnet.CQRS.Sagas.Contracts.csproj" />
+        <ProjectReference Include="..\shared\Jeninnet.CQRS.Sagas.Contracts\Jeninnet.CQRS.Sagas.Contracts.csproj" />
         <ProjectReference Include="..\..\src\Jeninnet.CQRS.Testing\Jeninnet.CQRS.Testing.csproj" />
         <ProjectReference Include="..\..\src\Jeninnet.CQRS\Jeninnet.CQRS.csproj" />
     </ItemGroup>
