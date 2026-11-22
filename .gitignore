@@ -381,13 +381,6 @@ FodyWeavers.xsd
 # BenchmarkDotNet.Artifacts/, TestResults/, coverage files, and NuGet outputs.
 # Only project-specific gaps and intentional exceptions are listed here.
 
-# Local-only workspace: ADRs, task ledger, parity data, editorial standards,
-# release articles, research exports. Never commit.
-[pP]rivate/
-
-# Saved research pages (vendor chat exports, scraped docs) are not product source.
-src/**/Documents/
-
 # Local development feeds and outputs not covered by the base.
 local-feed/
 output/
