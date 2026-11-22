@@ -62,24 +62,23 @@ better.
 
 ```text
 src/
-    Jeninnet.CQRS/                   Core abstractions, dispatcher, broker, behaviors
+    Jeninnet.CQRS/                  Core broker, dispatchers, pipeline, durability, scheduling
+    Jeninnet.CQRS.Contracts/        Zero-dependency message markers and shared headers
     Jeninnet.CQRS.Generators/       Roslyn source generator (handler registration)
-    Jeninnet.CQRS.Behaviors/        Shared pipeline behaviors
-    Jeninnet.CQRS.Caching/          Caching pipeline behavior
-    Jeninnet.CQRS.FluentValidation/ FluentValidation bridge
-    Jeninnet.CQRS.Idempotency/      Idempotency pipeline behavior
-    Jeninnet.CQRS.Resilience/       Retry/circuit-breaker pipeline behavior
-    Jeninnet.CQRS.Validation/       Jeninnet.Validation pipeline behavior (NuGet-backed)
+    Jeninnet.CQRS.Analyzers/        Compile-time misuse analyzers
+    Jeninnet.CQRS.*                Opt-in behaviors, stores, result adapters, serializers,
+                                     testing, observability, and transports (one package per concern)
 
 tests/
-    Jeninnet.CQRS.Tests/            Dispatcher, caching, retry, processor tests
-    Jeninnet.CQRS.IntegrationTests/ Source-generator registration tests
-    Jeninnet.CQRS.Validation.Tests/ Validation behavior tests
+    Jeninnet.CQRS.*.Tests/          Runnable MSTest suites (unit, integration, transport, EF)
+    shared/                         Shared contract suites used by the runnable tests;
+                                     these are not test projects and are never packed
 
 samples/
-    Jeninnet.CQRS.Sample.Console/   Console sample
-    Jeninnet.CQRS.Sample.WebApi/    Minimal API sample
-scripts/                             Build, format, coverage, Sonar, badge, and security checks
+    Jeninnet.CQRS.Sample.*          Console, Web API, end-to-end, net462, and NativeAOT samples
+
+scripts/                            Build, format, coverage, Sonar, release, badge, and security checks
+docs/                               Book, package pages, guides, ADRs, release notes, API reference
 ```
 
 ## Design Philosophy
