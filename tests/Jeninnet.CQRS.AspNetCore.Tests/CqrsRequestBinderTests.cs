@@ -22,12 +22,14 @@ public sealed class CqrsRequestBinderTests {
 
         var result = await CqrsRequestBinder.BindAsync<TestRequest>(context, readBody: false, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.IsNull(result.Error);
-        Assert.IsNotNull(result.Request);
-        Assert.AreEqual(Guid.Parse("6f9619ff-8b86-d011-b42d-00c04fc964ff"), result.Request.Id);
-        Assert.AreEqual(3, result.Request.Count);
-        Assert.AreEqual("route", result.Request.Name);
-        CollectionAssert.AreEqual(_expectedTags, result.Request.Tags);
+        MSTestAssertions.That(() => result.Error.Should().BeNull());
+        MSTestAssertions.That(() => result.Request.Should().NotBeNull());
+
+        var request = result.Request!;
+        MSTestAssertions.That(() => request.Id.Should().Be(Guid.Parse("6f9619ff-8b86-d011-b42d-00c04fc964ff")));
+        MSTestAssertions.That(() => request.Count.Should().Be(3));
+        MSTestAssertions.That(() => request.Name.Should().Be("route"));
+        MSTestAssertions.That(() => request.Tags!.Should().ContainInOrder(_expectedTags));
     }
 
     [TestMethod]
@@ -39,10 +41,12 @@ public sealed class CqrsRequestBinderTests {
 
         var result = await CqrsRequestBinder.BindAsync<TestRequest>(context, readBody: true, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.IsNull(result.Error);
-        Assert.IsNotNull(result.Request);
-        Assert.AreEqual("query", result.Request.Name);
-        Assert.AreEqual(7, result.Request.Count);
+        MSTestAssertions.That(() => result.Error.Should().BeNull());
+        MSTestAssertions.That(() => result.Request.Should().NotBeNull());
+
+        var request = result.Request!;
+        MSTestAssertions.That(() => request.Name.Should().Be("query"));
+        MSTestAssertions.That(() => request.Count.Should().Be(7));
     }
 
     [TestMethod]
@@ -52,8 +56,8 @@ public sealed class CqrsRequestBinderTests {
 
         var result = await CqrsRequestBinder.BindAsync<TestRequest>(context, readBody: true, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.IsNull(result.Request);
-        Assert.IsNotNull(result.Error);
+        MSTestAssertions.That(() => result.Request.Should().BeNull());
+        MSTestAssertions.That(() => result.Error.Should().NotBeNull());
     }
 
     [TestMethod]
@@ -63,8 +67,8 @@ public sealed class CqrsRequestBinderTests {
 
         var result = await CqrsRequestBinder.BindAsync<TestRequest>(context, readBody: true, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.IsNull(result.Request);
-        Assert.IsNotNull(result.Error);
+        MSTestAssertions.That(() => result.Request.Should().BeNull());
+        MSTestAssertions.That(() => result.Error.Should().NotBeNull());
     }
 
     [TestMethod]
@@ -74,9 +78,11 @@ public sealed class CqrsRequestBinderTests {
 
         var result = await CqrsRequestBinder.BindAsync<TestRequest>(context, readBody: false, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.IsNull(result.Error);
-        Assert.IsNotNull(result.Request);
-        Assert.AreEqual(2, result.Request.Count);
+        MSTestAssertions.That(() => result.Error.Should().BeNull());
+        MSTestAssertions.That(() => result.Request.Should().NotBeNull());
+
+        var request = result.Request!;
+        MSTestAssertions.That(() => request.Count.Should().Be(2));
     }
 
     private sealed class TestRequest {
